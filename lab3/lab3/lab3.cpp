@@ -14,8 +14,8 @@ struct point2D
 
 point2D create_point() {
 	point2D temp;
-	temp.x = rand() % 20;
-	temp.y = rand() % 20;
+	temp.x = rand() % 10;
+	temp.y = rand() % 10;
 	return temp;
 }
 
@@ -31,6 +31,11 @@ float distance(point2D lhs, point2D rhs) {
 }
 
 
+float area_of_triangle(point2D a, point2D b, point2D c){
+	float product = a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y);
+	return abs(product / 2);
+
+}
 
 
 int main()
@@ -64,7 +69,7 @@ int main()
 		std::cout << "point[ " << i << " ] = (" << points[i].x << ", " << points[i].y << ")" << std::endl;
 	}
 	
-
+	/*
 	float latgest_distance = 0.0;
 	point2D first, second;
 
@@ -85,8 +90,35 @@ int main()
 
 	std::cout << "The largest distance is: " << latgest_distance << std::endl;
 	std::cout << "First point: (" << first.x << ", " << first.y << ")" << std::endl;
-	std::cout << "First point: (" << second.x << ", " << second.y << ")" << std::endl;
-	
+	std::cout << "Second point: (" << second.x << ", " << second.y << ")" << std::endl;
+	*/
+
+	float largest_area = 0.0;
+	point2D first, second, third;
+
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			for (int k = 0; k < 10; k++)
+			{
+				float area = area_of_triangle(points[i], points[j], points[k]);
+				if (area > largest_area)
+				{
+					largest_area = area;
+					first = points[i];
+					second = points[j];
+					third = points[k];
+				}
+			}
+		}
+
+	}
+
+	std::cout << "The largest area is: " << largest_area << std::endl;
+	std::cout << "First point: (" << first.x << ", " << first.y << ")" << std::endl;
+	std::cout << "Second point: (" << second.x << ", " << second.y << ")" << std::endl;
+	std::cout << "Third point: (" << third.x << ", " << third.y << ")" << std::endl;
 
 
 	return 0;
